@@ -1,11 +1,8 @@
 import random
-import typing as tp
 
 
-def is_prime(n: int) -> bool:
+def is_prime(n):
     """
-    Tests to see if a number is prime.
-
     >>> is_prime(2)
     True
     >>> is_prime(11)
@@ -13,51 +10,58 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
-    pass
+    for i in range(2, n):
+        if n % i == 0:
+            return False
+    else:
+        return True
 
 
-def gcd(a: int, b: int) -> int:
+def gcd(a, b):
     """
-    Euclid's algorithm for determining the greatest common divisor.
-
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    while a != b:
+        if a > b:
+            a = a - b
+        else:
+            b = b - a
+    return a
 
 
-def multiplicative_inverse(e: int, phi: int) -> int:
+def multiplicative_inverse(e, phi):
     """
-    Euclid's extended algorithm for finding the multiplicative
-    inverse of two numbers.
-
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    def gcdex(a, b):
+        if b == 0:
+            return a, 1, 0
+        else:
+            d, x, y = gcdex(b, a % b)
+            return d, y, x - y * (a // b)
+    d, x, y = gcdex(e, phi)
+    return x % phi
 
 
-def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[int, int]]:
+def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):
-        raise ValueError("Both numbers must be prime.")
+        raise ValueError('Both numbers must be prime.')
     elif p == q:
-        raise ValueError("p and q cannot be equal")
+        raise ValueError('p and q cannot be equal')
 
-    # n = pq
-    # PUT YOUR CODE HERE
+    n = p * q
 
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
 
-    # Use Euclid's Algorithm to verify that e and phi(n) are coprime
+    # Use Euclid's Algorithm to verify that e and phi(n) are comprime
     g = gcd(e, phi)
     while g != 1:
         e = random.randrange(1, phi)
@@ -71,7 +75,7 @@ def generate_keypair(p: int, q: int) -> tp.Tuple[tp.Tuple[int, int], tp.Tuple[in
     return ((e, n), (d, n))
 
 
-def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
+def encrypt(pk, plaintext):
     # Unpack the key into it's components
     key, n = pk
     # Convert each letter in the plaintext to numbers based on
@@ -81,17 +85,16 @@ def encrypt(pk: tp.Tuple[int, int], plaintext: str) -> tp.List[int]:
     return cipher
 
 
-def decrypt(pk: tp.Tuple[int, int], ciphertext: tp.List[int]) -> str:
+def decrypt(pk, ciphertext):
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
     plain = [chr((char ** key) % n) for char in ciphertext]
     # Return the array of bytes as a string
-    return "".join(plain)
+    return ''.join(plain)
 
 
-if __name__ == "__main__":
-    print("RSA Encrypter/ Decrypter")
+if __name__ == '__main__':
     p = int(input("Enter a prime number (17, 19, 23, etc): "))
     q = int(input("Enter another prime number (Not one you entered above): "))
     print("Generating your public/private keypairs now . . .")
@@ -100,7 +103,7 @@ if __name__ == "__main__":
     message = input("Enter a message to encrypt with your private key: ")
     encrypted_msg = encrypt(private, message)
     print("Your encrypted message is: ")
-    print("".join(map(lambda x: str(x), encrypted_msg)))
+    print(''.join(map(lambda x: str(x), encrypted_msg)))
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
