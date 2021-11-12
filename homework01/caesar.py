@@ -1,4 +1,4 @@
-def encrypt_caesar(plaintext, shift):
+def encrypt_caesar(plaintext: str)->str:
     """
     >>> encrypt_caesar("PYTHON")
     'SBWKRQ'
@@ -8,23 +8,19 @@ def encrypt_caesar(plaintext, shift):
     ''
     """
     ciphertext = ""
-    for i in plaintext:
-        if 64 < ord(i) < 64 + 26:
-            if ord(i) > 64 + 26 - shift:
-                ciphertext += chr(ord(i) + shift - 26)
-            else:
-                ciphertext += chr(ord(i) + shift)
-        elif 96 < ord(i) < 96 + 26:
-            if ord(i) > 96 + 26 - shift:
-                ciphertext += chr(ord(i) + shift - 26)
-            else:
-                ciphertext += chr(ord(i) + shift)
+    sumb = ""
+    for sumb in plaintext:
+        if 'A' <= sumb <= 'Z' or 'a' <= sumb <= 'z':
+            code_sumb = ord(sumb) + 3
+            if code_sumb > ord('Z') and code_sumb < ord('a') or code_sumb > ord('z'):
+                code_sumb -= 26
+            ciphertext += chr(code_sumb)
         else:
-            ciphertext += i
+            ciphertext += sumb
     return ciphertext
 
 
-def decrypt_caesar(ciphertext, shift):
+def decrypt_caesar(ciphertext: str)->str:
     """
     >>> decrypt_caesar("SBWKRQ")
     'PYTHON'
@@ -34,17 +30,13 @@ def decrypt_caesar(ciphertext, shift):
     ''
     """
     plaintext = ""
-    for i in ciphertext:
-        if 64 < ord(i) < 64 + 26:
-            if ord(i) < 64 + shift:
-                plaintext += chr(ord(i) - shift + 26)
-            else:
-                plaintext += chr(ord(i) - shift)
-        elif 96 < ord(i) < 96 + 26:
-            if ord(i) < 96 + shift:
-                plaintext += chr(ord(i) - shift + 26)
-            else:
-                plaintext += chr(ord(i) - shift)
+    for sumb in ciphertext:
+        if 'A' <= sumb <= 'Z' or 'a' <= sumb <= 'z':
+            code_sumb = ord(sumb) - 3
+            if code_sumb > ord('Z') and code_sumb < ord('a') or code_sumb < ord('A'):
+                code_sumb += 26
+            plaintext += chr(code_sumb)
         else:
-            ciphertext += i
+            plaintext += sumb
+
     return plaintext
