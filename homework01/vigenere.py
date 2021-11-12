@@ -1,4 +1,4 @@
-def encrypt_vigenere(plaintext, keyword):
+def encrypt_vigenere(plaintext: str, keyword: str)-> str:
     """
     >>> encrypt_vigenere("PYTHON", "A")
     'PYTHON'
@@ -8,25 +8,22 @@ def encrypt_vigenere(plaintext, keyword):
     'LXFOPVEFRNHR'
     """
     ciphertext = ""
-    for i in range(len(plaintext)):
-        if 64 < ord(plaintext[i]) < 65 + 26:
-            shift = (ord(keyword[i % len(keyword)]) - 65)
-            if ord(plaintext[i]) > 64 + 26 - shift:
-                ciphertext += chr(ord(plaintext[i]) + shift - 26)
-            else:
-                ciphertext += chr(ord(plaintext[i]) + shift)
-        elif 96 < ord(plaintext[i]) < 97 + 26:
-            shift = (ord(keyword[i % len(keyword)]) - 97)
-            if ord(plaintext[i]) > 96 + 26 - shift:
-                ciphertext += chr(ord(plaintext[i]) + shift - 26)
-            else:
-                ciphertext += chr(ord(plaintext[i]) + shift)
+    for num, symbol in enumerate(plaintext):
+        if 'A' <= symbol <= 'Z' or 'a' <= symbol <= 'z':
+            shift = ord(keyword[num % len(keyword)])
+            shift -= ord('a') if 'z' >= symbol >= 'a' else ord('A')
+            symbol_code = ord(symbol) + shift
+            if 'a' <= symbol <= 'z' and symbol_code > ord('z'):
+                symbol_code -= 26
+            elif 'A' <= symbol <= 'Z' and symbol_code > ord('Z'):
+                symbol_code -= 26
+            ciphertext += chr(symbol_code)
         else:
-            ciphertext += i
+            ciphertext += symbol
     return ciphertext
 
 
-def decrypt_vigenere(plaintext, keyword):
+def decrypt_vigenere(ciphertext: str, keyword: str)-> str:
     """
     >>> decrypt_vigenere("PYTHON", "A")
     'PYTHON'
@@ -35,20 +32,17 @@ def decrypt_vigenere(plaintext, keyword):
     >>> decrypt_vigenere("LXFOPVEFRNHR", "LEMON")
     'ATTACKATDAWN'
     """
-    ciphertext = ""
-    for i in range(len(plaintext)):
-        if 64 < ord(plaintext[i]) < 65 + 26:
-            shift = (ord(keyword[i % len(keyword)]) - 65)
-            if ord(plaintext[i]) < 64 + shift:
-                ciphertext += chr(ord(plaintext[i]) + 26 - shift)
-            else:
-                ciphertext += chr(ord(plaintext[i]) - shift)
-        elif 96 < ord(plaintext[i]) < 97 + 26:
-            shift = (ord(keyword[i % len(keyword)]) - 97)
-            if ord(plaintext[i]) < 96 + shift:
-                ciphertext += chr(ord(plaintext[i]) + shift - 26)
-            else:
-                ciphertext += chr(ord(plaintext[i]) + shift)
+    plaintext = ""
+    for num, symbol in enumerate(ciphertext):
+        if 'A' <= symbol <= 'Z' or 'a' <= symbol <= 'z':
+            shift = ord(keyword[num % len(keyword)])
+            shift -= ord('a') if 'z' >= symbol >= 'a' else ord('A')
+            symbol_code = ord(symbol) - shift
+            if 'a' <= symbol <= 'z' and symbol_code < ord('a'):
+                symbol_code += 26
+            elif 'A' <= symbol <= 'Z' and symbol_code < ord('A'):
+                symbol_code += 26
+            plaintext += chr(symbol_code)
         else:
-            ciphertext += i
-    return ciphertext
+            plaintext += symbol
+    return plaintext
