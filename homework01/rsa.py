@@ -49,9 +49,9 @@ def multiplicative_inverse(e, phi):
 
 def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):
-        raise ValueError('Both numbers must be prime.')
+        raise ValueError("Both numbers must be prime.")
     elif p == q:
-        raise ValueError('p and q cannot be equal')
+        raise ValueError("p and q cannot be equal")
 
     n = p * q
 
@@ -91,10 +91,10 @@ def decrypt(pk, ciphertext):
     # Generate the plaintext based on the ciphertext and key using a^b mod m
     plain = [chr((char ** key) % n) for char in ciphertext]
     # Return the array of bytes as a string
-    return ''.join(plain)
+    return "".join(plain)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     p = int(input("Enter a prime number (17, 19, 23, etc): "))
     q = int(input("Enter another prime number (Not one you entered above): "))
     print("Generating your public/private keypairs now . . .")
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     message = input("Enter a message to encrypt with your private key: ")
     encrypted_msg = encrypt(private, message)
     print("Your encrypted message is: ")
-    print(''.join(map(lambda x: str(x), encrypted_msg)))
+    print("".join(map(lambda x: str(x), encrypted_msg)))
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
