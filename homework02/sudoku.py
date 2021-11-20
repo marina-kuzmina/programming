@@ -14,8 +14,12 @@ def display(values: Any) -> Any:
     width = 2
     line = "+".join(["-" * (width * 3)] * 3)
     for row in range(9):
-        print("".join(values[row][col].center(width) +
-              ("|" if str(col) in "25" else "") for col in range(9)))
+        print(
+            "".join(
+                values[row][col].center(width) + ("|" if str(col) in "25" else "")
+                for col in range(9)
+            )
+        )
         if str(row) in "25":
             print(line)
     print()
