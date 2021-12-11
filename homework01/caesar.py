@@ -8,14 +8,21 @@ def encrypt_caesar(plaintext: str) -> str:
     ''
     """
     ciphertext = ""
-    for sumb in plaintext:
-        if "A" <= sumb <= "Z" or "a" <= sumb <= "z":
-            code_sumb = ord(sumb) + 3
-            if code_sumb > ord("Z") and code_sumb < ord("a") or code_sumb > ord("z"):
+        for sumb in plaintext:
+        if 'A' <= sumb <= 'Z':
+            code_sumb = ord(sumb) + shift
+            if ord('A') > code_sumb or code_sumb > ord('Z'):
+                code_sumb -= 26
+            ciphertext += chr(code_sumb)
+
+        elif 'a' <= sumb <= 'z':
+            code_sumb = ord(sumb) + shift
+            if ord('a') > code_sumb or code_sumb > ord('z'):
                 code_sumb -= 26
             ciphertext += chr(code_sumb)
         else:
             ciphertext += sumb
+
     return ciphertext
 
 
@@ -29,10 +36,16 @@ def decrypt_caesar(ciphertext: str) -> str:
     ''
     """
     plaintext = ""
-    for sumb in ciphertext:
-        if "A" <= sumb <= "Z" or "a" <= sumb <= "z":
-            code_sumb = ord(sumb) - 3
-            if code_sumb > ord("Z") and code_sumb < ord("a") or code_sumb < ord("A"):
+        for sumb in ciphertext:
+        if 'A' <= sumb <= 'Z':
+            code_sumb = ord(sumb) - shift
+            if code_sumb > ord('Z') or code_sumb < ord('A'):
+                code_sumb += 26
+            plaintext += chr(code_sumb)
+
+        elif 'a' <= sumb <= 'z':
+            code_sumb = ord(sumb) - shift
+            if code_sumb > ord('z') or code_sumb < ord('a'):
                 code_sumb += 26
             plaintext += chr(code_sumb)
         else:
