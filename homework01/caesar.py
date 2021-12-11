@@ -8,6 +8,7 @@ def encrypt_caesar(plaintext: str) -> str:
     ''
     """
     ciphertext = ""
+
         for sumb in plaintext:
         if 'A' <= sumb <= 'Z':
             code_sumb = ord(sumb) + shift
