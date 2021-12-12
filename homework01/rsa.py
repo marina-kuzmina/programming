@@ -10,7 +10,7 @@ def is_prime(n: int) -> bool:
     >>> is_prime(8)
     False
     """
-        if n > 1:
+    if n > 1:
         for i in range(2, n):
             if n % i == 0:
                 return False
@@ -26,7 +26,7 @@ def gcd(a: int, b: int) -> int:
     >>> gcd(3, 7)
     1
     """
-        while b != 0:
+    while b != 0:
         a, b = b, a % b
     return a
 
