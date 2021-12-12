@@ -1,7 +1,7 @@
 import random
 
 
-def is_prime(n):
+def is_prime(n: int) -> bool:
     """
     >>> is_prime(2)
     True
@@ -10,25 +10,24 @@ def is_prime(n):
     >>> is_prime(8)
     False
     """
-    for i in range(2, n):
-        if n % i == 0:
-            return False
+        if n > 1:
+        for i in range(2, n):
+            if n % i == 0:
+                return False
     else:
-        return True
+        return False
+    return True
 
 
-def gcd(a, b):
+def gcd(a: int, b: int) -> int:
     """
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
-    while a != b:
-        if a > b:
-            a = a - b
-        else:
-            b = b - a
+        while b != 0:
+        a, b = b, a % b
     return a
 
 
