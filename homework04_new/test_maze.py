@@ -76,41 +76,41 @@ class MazeTest(unittest.TestCase):
     def test_bin_tree_maze(self):
         seed(42)
         expected_grid_42 = [
-            ['X', '■', '■', '■', '■'],
-            ['■', ' ', ' ', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', '■', '■', '■', '■'],
+            ["■", "■", "■", "■", "■"],
+            ["X", " ", " ", " ", "■"],
+            ["■", "■", "■", " ", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "■", "■", "■", "■"],
         ]
         self.assertEqual(expected_grid_42, maze.bin_tree_maze(5, 5))
 
         seed(222)
         expected_grid_222 = [
-            ['X', '■', '■', '■', '■'],
-            ['X', ' ', ' ', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', '■', '■', '■', '■'],
+            ["■", "X", "■", "X", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "■", "■", " ", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "■", "■", "■", "■"],
         ]
         self.assertEqual(expected_grid_222, maze.bin_tree_maze(5, 5))
 
         seed(622)
         expected_grid_622 = [
-            ['X', '■', 'X', '■', '■'],
-            ['■', ' ', ' ', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', ' ', '■', ' ', '■'],
-            ['■', '■', '■', '■', '■'],
+            ["■", "■", "■", "X", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "■", "■", " ", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["X", "■", "■", "■", "■"],
         ]
         self.assertEqual(expected_grid_622, maze.bin_tree_maze(5, 5))
 
         seed(622)
         expected_grid_f = [
-            ['■', '■', '■', '■', 'X'],
-            ['■', ' ', ' ', ' ', '■'],
-            ['■', '■', '■', ' ', '■'],
-            ['■', ' ', ' ', ' ', '■'],
-            ['X', '■', '■', '■', '■'],
+            ["■", "■", "■", "X", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "■", "■", " ", "■"],
+            ["■", " ", " ", " ", "■"],
+            ["■", "X", "■", "■", "■"],
         ]
         self.assertEqual(expected_grid_f, maze.bin_tree_maze(5, 5, random_exit=False))
 
@@ -235,34 +235,33 @@ class MazeTest(unittest.TestCase):
     def test_solve_maze(self):
         seed(34)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
-        self.assertIsNone(path_)
+        _, path_ = maze.solve_maze(grid)
+        self.assertEqual([(3, 0), (3, 1), (2, 1), (1, 1), (1, 2), (1, 3), (2, 3), (2, 4)], path_)
 
         seed(4)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
-        self.assertIsNone(path_)
+        _, path_ = maze.solve_maze(grid)
+        self.assertEqual([(3, 0), (3, 1), (2, 1), (1, 1), (1, 0)], path_)
 
         seed(44)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
-        self.assertIsNone(path_)
-        #self.assertEqual([(0, 3), (1, 3), (1, 2), (1, 1), (1, 0)], path_)
+        _, path_ = maze.solve_maze(grid)
+        self.assertEqual([(2, 0), (1, 0)], path_)
 
         seed(131)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
+        _, path_ = maze.solve_maze(grid)
         self.assertIsNone(path_)
 
         seed(151)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
-        self.assertEqual([(1, 0), (1, 1), (1, 2), (1, 3), (0, 3)], path_)
+        _, path_ = maze.solve_maze(grid)
+        self.assertIsNone(path_)
 
         seed(773)
         grid = maze.bin_tree_maze(5, 5)
-        path_ = maze.solve_maze(grid)
-        self.assertEqual([(3, 0), (3, 1), (3, 2), (3, 3), (2, 3), (1, 3), (1, 2), (1, 1), (0, 1)], path_)
+        _, path_ = maze.solve_maze(grid)
+        self.assertEqual([(4, 3), (3, 3), (3, 2), (3, 1), (3, 0)], path_)
 
     def test_shortest_path(self):
         grid_1 = [
