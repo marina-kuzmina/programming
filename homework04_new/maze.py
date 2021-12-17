@@ -17,7 +17,7 @@ def remove_wall(
     :param coord:
     :return:
     """
-currenty, currentx = coord
+    currenty, currentx = coord
     cols = len(grid[0])
     direction = randint(0, 1)
     if direction  == 0:
@@ -59,7 +59,8 @@ def bin_tree_maze(
     # выбрать второе возможное направление
     # 3. перейти в следующую клетку, сносим между клетками стену
     # 4. повторять 2-3 до тех пор, пока не будут пройдены все клетки
-
+    for _, cell in enumerate(empty_cells):
+        grid = remove_wall(grid, cell)
     # генерация входа и выхода
     if random_exit:
         x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
@@ -98,7 +99,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :return:
     """
   
-  for row in range(len(grid) - 1):
+    for row in range(len(grid) - 1):
         for col in range(len(grid[row]) - 1):
             if grid[row][col] == k:
                 if grid[row + 1][col] == 0:
