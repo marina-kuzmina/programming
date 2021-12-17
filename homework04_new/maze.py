@@ -47,11 +47,40 @@ def bin_tree_maze(
 
     grid = create_grid(rows, cols)
     empty_cells = []
+    
     for x, row in enumerate(grid):
         for y, _ in enumerate(row):
             if x % 2 == 1 and y % 2 == 1:
                 grid[x][y] = " "
                 empty_cells.append((x, y))
+                
+                
+    if random_exit:
+        start = (0, randint(0, rows - 1))
+        finish = (randint(0, rows - 1), 0)
+    else:
+        start = (0, rows - 1)
+        finish = (cols - 1, 0)
+
+
+    grid[start[0]][start[1]] = "X"
+    grid[finish[0]][finish[1]] = "X"
+
+    for currenty in range(1, rows, 2):
+        for currentx in range(1, cols, 2):
+            direction = randint(0, 1)
+            if direction == 0:
+                if currenty == 1:
+                    if currentx != cols - 2:
+                        grid[currenty][currentx + 1] = " "
+                else:
+                    grid[currenty - 1][currentx] = " "
+            else:
+                if currentx != cols - 2:
+                    grid[currenty][currentx + 1] = " "
+                else: 
+                    if currenty != 1:
+                        grid[currenty - 1][currentx] = " "
 
     # 1. выбрать любую клетку
     # 2. выбрать направление: наверх или направо.
@@ -59,18 +88,6 @@ def bin_tree_maze(
     # выбрать второе возможное направление
     # 3. перейти в следующую клетку, сносим между клетками стену
     # 4. повторять 2-3 до тех пор, пока не будут пройдены все клетки
-    for _, cell in enumerate(empty_cells):
-        grid = remove_wall(grid, cell)
-    # генерация входа и выхода
-    if random_exit:
-        x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
-        y_in = randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1))
-        y_out = randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1))
-    else:
-        x_in, y_in = 0, cols - 2
-        x_out, y_out = rows - 1, 1
-
-    grid[x_in][y_in], grid[x_out][y_out] = "X", "X"
 
     return grid
 
@@ -81,15 +98,17 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     :return:
     """
 
-    list1 = []
-    for x, row in enumerate(grid):
-        if "X" in row:
-            for y, _ in enumerate(row):
-                if grid[x][y] == "X":
-                    list1.append((x, y))
-            if len(list1) == 2:
-                break
-    return list1
+    exits = []
+    
+    for y in range(len(grid)):
+        if "X" == grid[y][0]:
+            exits.append((y, 0))
+            
+    for x in range(len(grid)):
+        if "X" == grid[0][x]:
+            exits.append((0, x))
+            
+    return sorted(exits)
 
 
 def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str, int]]]:
