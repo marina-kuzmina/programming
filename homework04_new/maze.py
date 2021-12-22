@@ -98,7 +98,7 @@ def make_step(grid: List[List[Union[str, int]]], k: int) -> List[List[Union[str,
     :param k:
     :return:
     """
-  
+
     for row in range(len(grid) - 1):
         for col in range(len(grid[row]) - 1):
             if grid[row][col] == k:
@@ -121,69 +121,69 @@ def shortest_path(
     :param exit_coord:
     :return:
     """
-    
+
     path = [exit_coord]
     currentcell = exit_coord
-    
-    k = int(grid[currentcell[0]][currentcelld[1]])
+
+    k = int(grid[currentcell[0]][currentcell[1]])
     (row, col) = currentcell
-    
+
     if currentcell[0] != len(grid) - 1:
-        
+
         if grid[row + 1][col] == k - 1:
-            
+
             currentcell = (row + 1, col)
             path.append(currentcell)
             k -= 1
-            
-    if currentcelld[0] != 0:
-        
+
+    if currentcell[0] != 0:
+
         if grid[row - 1][col] == k - 1:
-            
+
             currentcell = (row - 1, col)
             path.append(currentcell)
             k -= 1
-            
+
     if currentcell[1] != len(grid[0]) - 1:
-        
+
         if grid[row][col + 1] == k - 1:
-            
+
             currentcell = (row, col + 1)
             path.append(currentcell)
             k -= 1
-            
+
     if currentcell[1] != 0:
-        
+
         if grid[row][col - 1] == k - 1:
-            
+
             currentcell = (row, col - 1)
             path.append(currentcell)
             k -= 1
-            
+
     while grid[currentcell[0]][currentcell[1]] != 1:
-        
+
         (row, col) = currentcell
-        
+
         if grid[row + 1][col] == k - 1:
-            
+
             currentcell = (row + 1, col)
             path.append(currentcell)
             k -= 1
-            
+
         elif grid[row - 1][col] == k - 1:
-            
+
             currentcell = (row - 1, col)
             path.append(currentcell)
             k -= 1
-            
+
         elif grid[row][col + 1] == k - 1:
-            
+
             currentcell = (row, col + 1)
             path.append(currentcell)
             k -= 1
-            
+
         elif grid[row][col - 1] == k - 1:
-            
+
             currentcell = (row, col - 1)
             path.append(currentcell)
             k -= 1
@@ -199,21 +199,17 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     """
 
     if coord[0] == 0 and grid[coord[0] + 1][coord[1]] != " ":
-        
         return True
-    
-     if coord[1] == 0 and grid[coord[0]][coord[1] + 1] != " ":
-            
-        return True
-    
+
+    if coord[1] == 0 and grid[coord[0]][coord[1] + 1] != " ":
+         return True
+
     if coord[0] == len(grid) - 1 and grid[coord[0] - 1][coord[1]] != " ":
-        
         return True
-    
+
     if coord[1] == len(grid[0]) - 1 and grid[coord[0]][coord[1] - 1] != " ":
-        
         return True
-    
+
     return False
 
 
@@ -229,16 +225,16 @@ def solve_maze(
     exits = get_exits(grid)
     if len(exits) == 1:
         return None
-    
+
     for i in exits:
         if encircled_exit(grid, i):
             return None
-        
+
     start = exits[0]
     finish = exits[1]
 
     grid[start[0]][start[1]] = 1
-    
+
     for row in range(len(grid) - 1):
         for col in range(len(grid[row]) - 1):
             if grid[row][col] == " ":
@@ -247,27 +243,27 @@ def solve_maze(
     grid[finish[0]][finish[1]] = 0
 
     k = 1
-    
+
     if start[0] != len(grid) - 1:
         if grid[start[0] + 1][start[1]] == 0:
             grid[start[0] + 1][start[1]] = k + 1
-          
+
     if start[0] != 0:
         if grid[start[0] - 1][start[1]] == 0:
             grid[start[0] - 1][start[1]] = k + 1
-            
+
     if start[1] != len(grid[0]) - 1:
         if grid[start[0]][start[1] + 1] == 0:
             grid[start[0]][start[1] + 1] = k + 1
-            
+
     if start[1] != 0:
         if grid[start[0]][start[1] - 1] == 0:
             grid[start[0]][start[1] - 1] = k + 1
-            
+
     while grid[finish[0]][finish[1]] == 0:
         k += 1
         make_step(grid, k)
-        
+
     return shortest_path(grid, finish)
 
 
@@ -292,7 +288,7 @@ if __name__ == "__main__":
     print(pd.DataFrame(bin_tree_maze(15, 15)))
     GRID = bin_tree_maze(15, 15)
     print(pd.DataFrame(GRID))
-    _, PATH = solve_maze(GRID)
+    PATH = solve_maze(GRID)
     MAZE = add_path_to_grid(GRID, PATH)
-    print(pd.DataFrame(MAZE))D, path1)
+    print(pd.DataFrame(MAZE))#D, path1)
     print(pd.DataFrame(MAZE))
