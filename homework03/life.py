@@ -29,46 +29,72 @@ class GameOfLife:
         self.generations = 1
 
     def create_grid(self, randomize: bool = False) -> Grid:
-        # Copy from previous assignment
-        pass
+        grid = [[0] * self.cols for _ in range(self.rows)]
+        if randomize:
+            for i in range(self.rows):
+                for j in range(self.cols):
+                    grid[i][j] = random.randint(0, 1)
+        self.grid = grid
+        return grid
 
     def get_neighbours(self, cell: Cell) -> Cells:
-        # Copy from previous assignment
-        pass
+        y, x = cell
+        neighbours = []
+        for col in range(-1, 2):
+            for row in range(-1, 2):
+                if self.rows > y + row >= 0 and self.cols > x + col >= 0 and (
+                        col != 0 or row != 0):
+                    neighbours.append(self.curr_generation[y + row][x + col])
+        return neighbours
 
     def get_next_generation(self) -> Grid:
-        # Copy from previous assignment
-        pass
-
+       new_grid = [[0] * self.cols for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if 1 < sum(self.get_neighbours((i, j))) < 4 and self.curr_generation[i][j] == 1:
+                    new_grid[i][j] = 1
+                elif sum(self.get_neighbours((i, j))) == 3 and self.curr_generation[i][j] == 0:
+                    new_grid[i][j] = 1
+                else:
+                    new_grid[i][j] = 0
+        return new_grid
+    
     def step(self) -> None:
         """
         Выполнить один шаг игры.
         """
-        pass
+        self.prev_generation = self.curr_generation
+        self.curr_generation = self.get_next_generation()
+        self.generations += 1
+        return self.is_changing and not self.is_max_generations_exceed
 
     @property
     def is_max_generations_exceeded(self) -> bool:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
-        pass
+        return self.generations >= self.max_generations
 
     @property
     def is_changing(self) -> bool:
         """
         Изменилось ли состояние клеток с предыдущего шага.
         """
-        pass
+        return self.curr_generation != self.prev_generation
 
     @staticmethod
     def from_file(filename: pathlib.Path) -> "GameOfLife":
         """
         Прочитать состояние клеток из указанного файла.
         """
-        pass
+        with open(filename) as f:
+            self.curr_generation = json.load(f)
 
     def save(self, filename: pathlib.Path) -> None:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
-        pass
+        with open(filename, 'a+') as file:
+            save = json.load(file)
+            save[save_name] = self.curr_generation
+            json.dump(save, file)
