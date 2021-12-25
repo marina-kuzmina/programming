@@ -2,8 +2,7 @@ import json
 import pathlib
 import random
 from pprint import pprint
-
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
 
 Cell = Tuple[int, int]
 Cells = List[int]
