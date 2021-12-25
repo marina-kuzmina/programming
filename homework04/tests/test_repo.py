@@ -1,8 +1,8 @@
 import os
 import pathlib
 
-from pyvcs import repo
 from pyfakefs.fake_filesystem_unittest import TestCase
+from pyvcs import repo
 
 
 class RepoCreateTestCase(TestCase):
