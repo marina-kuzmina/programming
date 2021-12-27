@@ -24,8 +24,8 @@ class Session:
     ) -> None:
         pass
 
-    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    # def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         pass
 
-    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    # def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         pass
