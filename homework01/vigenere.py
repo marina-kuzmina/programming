@@ -12,16 +12,18 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     keyword = keyword.upper()
 
     ciphertext = ""
-    j = 0
-    for char in plaintext:
-        shift = ord(keyword[j]) - ord("A")
-        if char.isupper():
-            ciphertext += chr((ord(char) - ord("A") + shift) % 26 + ord("A"))
-        elif char.islower():
-            ciphertext += chr((ord(char) - ord("a") + shift) % 26 + ord("a"))
-        else:
-            ciphertext += char
-        j += 1
+    
+    for num, symbol in enumerate(plaintext):
+        if 'A' <= symbol <= 'Z' or 'a' <= symbol <= 'z':
+            shift = ord(keyword[num % len(keyword)])
+            shift -= ord('a') if 'z' >= symbol >= 'a' else ord('A')
+            symbol_code = ord(symbol) + shift
+        if 'a' <= symbol <= 'z' and symbol_code > ord('z'):
+            symbol_code -= 26
+        elif 'A' <= symbol <= 'Z' and symbol_code > ord('Z'):
+            symbol_code -= 26
+            ciphertext += chr(symbol_code)
+    
     return ciphertext
 
 
@@ -39,15 +41,16 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     keyword = keyword.upper()
 
     plaintext = ""
-    j = 0
-    for char in ciphertext:
-        shift = ord(keyword[j]) - ord("A")
-        if char.isupper():
-            plaintext += chr((ord(char) - ord("A") - shift) % 26 + ord("A"))
-        elif char.islower():
-            plaintext += chr((ord(char) - ord("a") - shift) % 26 + ord("a"))
 
-        else:
-            plaintext += char
-        j += 1
+    for num, symbol in enumerate(ciphertext):
+        if 'A' <= symbol <= 'Z' or 'a' <= symbol <= 'z':
+            shift = ord(keyword[num % len(keyword)])
+            shift -= ord('a') if 'z' >= symbol >= 'a' else ord('A')
+            symbol_code = ord(symbol) - shift
+        if 'a' <= symbol <= 'z' and symbol_code < ord('a'):
+            symbol_code += 26
+        elif 'A' <= symbol <= 'Z' and symbol_code < ord('A'):
+            symbol_code += 26
+            plaintext += chr(symbol_code)
+
     return plaintext
