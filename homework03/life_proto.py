@@ -1,10 +1,8 @@
 import random
 from copy import copy
 from pprint import pprint
-
 import json
 import pathlib
-
 from typing import List, Tuple
 
 import pygame
