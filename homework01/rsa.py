@@ -35,8 +35,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     """
     >>> multiplicative_inverse(7, 40)
     23
-    """
-    
+    """ 
     res = []
     while e != 0:
         res.append((phi, e, phi % e, phi // e))
@@ -46,6 +45,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
         x, y = y, x - y * res[i - 1][3]
     d = y % res[0][0]
     return d
+
 
 def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):
