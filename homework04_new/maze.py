@@ -20,7 +20,7 @@ def remove_wall(
     currenty, currentx = coord
     cols = len(grid[0])
     direction = randint(0, 1)
-    if direction  == 0:
+    if direction == 0:
         if currenty == 1:
             if currentx != cols - 2:
                 grid[currenty][currentx + 1] = " "
@@ -178,7 +178,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         return True
 
     if coord[1] == 0 and grid[coord[0]][coord[1] + 1] != " ":
-         return True
+        return True
 
     if coord[0] == len(grid) - 1 and grid[coord[0] - 1][coord[1]] != " ":
         return True
@@ -187,7 +187,6 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
         return True
 
     return False
-
 
 
 def solve_maze(
@@ -266,5 +265,5 @@ if __name__ == "__main__":
     print(pd.DataFrame(GRID))
     PATH = solve_maze(GRID)
     MAZE = add_path_to_grid(GRID, PATH)
-    print(pd.DataFrame(MAZE))#D, path1)
+    print(pd.DataFrame(MAZE))  # D, path1)
     print(pd.DataFrame(MAZE))
