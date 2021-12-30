@@ -22,7 +22,6 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
         elif "A" <= symbol <= "Z" and symbol_code > ord("Z"):
             symbol_code -= 26
             ciphertext += chr(symbol_code)
-    
     return ciphertext
 
 
@@ -50,5 +49,4 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
         elif "A" <= symbol <= "Z" and symbol_code < ord("A"):
             symbol_code += 26
             plaintext += chr(symbol_code)
-
     return plaintext
