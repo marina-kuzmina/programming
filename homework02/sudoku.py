@@ -77,9 +77,8 @@ def get_block(values: list, pos: tuple) -> list:
     br = 3 * (row // 3)
     bc = 3 * (col // 3)
     block = []
-    for i in range(3):
-        for j in range(3):
-            block.append(values[br + i][bc + j])
+    for i, j in range(3):
+        block.append(values[br + i][bc + j])
     return block
 
 
@@ -96,7 +95,7 @@ def find_empty_positions(grid: list) -> tuple:
         for j in range(len(grid)):
             if grid[i][j] == ".":
                 return (i, j)
-    return ()
+    return None
 
 
 def find_possible_values(grid: list, pos: tuple) -> set:
@@ -138,7 +137,7 @@ def solve(grid: list) -> list:
         if solution:
             return solution
     grid[row][column] = "."
-    return []
+    return None
 
 
 def check_solution(solution: list) -> bool:
