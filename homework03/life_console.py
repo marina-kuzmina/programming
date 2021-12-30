@@ -11,7 +11,7 @@ class Console(UI):
     @staticmethod
     def draw_borders(screen) -> None:
        """Отобразить рамку."""
-       screen.border("|", "|", "-", "-", "+", "+", "+", "+")
+    screen.border("|", "|", "-", "-", "+", "+", "+", "+")
 
     def draw_grid(self, screen) -> None:
         """Отобразить состояние клеток."""
