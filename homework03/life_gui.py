@@ -63,7 +63,7 @@ class GUI(UI):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         pause = not pause
-                if event.type == MOUSEBUTTONUP:
+                if event.type == pygame.MOUSEBUTTONUP:
                     mouse_pos = event.pos
                     x, y = mouse_pos
                     self.life.curr_generation[y // self.cell_size][x // self.cell_size] = 1
@@ -79,6 +79,6 @@ class GUI(UI):
 
 
 if __name__ == "__main__":
-    game = GameOfLife(randomize=True)
+    game = GameOfLife(True)
     gui = GUI(game)
     gui.run()
