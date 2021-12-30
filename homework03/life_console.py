@@ -11,7 +11,7 @@ class Console(UI):
     @staticmethod
     def draw_borders(screen) -> None:
        """Отобразить рамку."""
-    screen.border("|", "|", "-", "-", "+", "+", "+", "+")
+       screen.border("|", "|", "-", "-", "+", "+", "+", "+")
 
     def draw_grid(self, screen) -> None:
         """Отобразить состояние клеток."""
@@ -33,7 +33,7 @@ class Console(UI):
         curses.endwin()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game = GameOfLife(max_generations=200)
     gui = Console(game)
     gui.run()
