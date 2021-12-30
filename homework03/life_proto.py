@@ -43,7 +43,6 @@ class GameOfLife:
         for y in range(0, self.height, self.cell_size):
             pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
             
-            
     def run(self) -> None:
         pygame.init()
         clock = pygame.time.Clock()
