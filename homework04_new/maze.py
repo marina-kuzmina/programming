@@ -87,8 +87,6 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
             for y, _ in enumerate(row):
                 if grid[x][y] == "X":
                     list1.append((x, y))
-            if len(list1) == 2:
-                break
     return list1
 
 
@@ -129,65 +127,43 @@ def shortest_path(
     (row, col) = currentcell
 
     if currentcell[0] != len(grid) - 1:
-
         if grid[row + 1][col] == k - 1:
-
             currentcell = (row + 1, col)
             path.append(currentcell)
             k -= 1
-
     if currentcell[0] != 0:
-
         if grid[row - 1][col] == k - 1:
-
             currentcell = (row - 1, col)
             path.append(currentcell)
             k -= 1
-
     if currentcell[1] != len(grid[0]) - 1:
-
         if grid[row][col + 1] == k - 1:
-
             currentcell = (row, col + 1)
             path.append(currentcell)
             k -= 1
-
     if currentcell[1] != 0:
-
         if grid[row][col - 1] == k - 1:
-
             currentcell = (row, col - 1)
             path.append(currentcell)
             k -= 1
-
     while grid[currentcell[0]][currentcell[1]] != 1:
-
         (row, col) = currentcell
-
         if grid[row + 1][col] == k - 1:
-
             currentcell = (row + 1, col)
             path.append(currentcell)
             k -= 1
-
         elif grid[row - 1][col] == k - 1:
-
             currentcell = (row - 1, col)
             path.append(currentcell)
             k -= 1
-
         elif grid[row][col + 1] == k - 1:
-
             currentcell = (row, col + 1)
             path.append(currentcell)
             k -= 1
-
         elif grid[row][col - 1] == k - 1:
-
             currentcell = (row, col - 1)
             path.append(currentcell)
             k -= 1
-
     return path
 
 
