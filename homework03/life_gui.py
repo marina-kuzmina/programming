@@ -5,14 +5,13 @@ from ui import UI
 
 
 class GUI(UI):
-
     def __init__(
         self,
         life: GameOfLife,
         cell_size: int = 10,
-        speed: int = 10
+        speed: int = 10,
         width: int = 640,
-        height: int = 480
+        height: int = 480,
     ) -> None:
         super().__init__(life)
         self.width = width
@@ -44,14 +43,17 @@ class GUI(UI):
                     color = "green"
                 else:
                     color = "white"
-                pygame.draw.rect(self.screen, pygame.Color(color),
-                                 (j * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size))
+                pygame.draw.rect(
+                    self.screen,
+                    pygame.Color(color),
+                    (j * self.cell_size, i * self.cell_size, self.cell_size, self.cell_size),
+                )
 
     def run(self) -> None:
         pygame.init()
         clock = pygame.time.Clock()
-        pygame.display.set_caption('Game of Life')
-        self.screen.fill(pygame.Color('white'))
+        pygame.display.set_caption("Game of Life")
+        self.screen.fill(pygame.Color("white"))
         running = True
         pause = False
         while running:
@@ -76,7 +78,7 @@ class GUI(UI):
         pygame.quit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game = GameOfLife(randomize=True)
     gui = GUI(game)
     gui.run()
