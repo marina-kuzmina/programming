@@ -31,22 +31,21 @@ def gcd(a: int, b: int) -> int:
     return a
 
 
-def multiplicative_inverse(e, phi):
+def multiplicative_inverse(e: int, phi: int) -> int:
     """
     >>> multiplicative_inverse(7, 40)
     23
     """
-
-    def gcdex(a, b):
-        if b == 0:
-            return a, 1, 0
-        else:
-            d, x, y = gcdex(b, a % b)
-            return d, y, x - y * (a // b)
-
-    d, x, y = gcdex(e, phi)
-    return x % phi
-
+    
+    res = []
+    while e != 0:
+        res.append((phi, e, phi % e, phi // e))
+        phi, e = e, phi % e
+    x, y = 0, 1
+    for i in range(len(res) - 1, 0, -1):
+        x, y = y, x - y * res[i - 1][3]
+    d = y % res[0][0]
+    return d
 
 def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):
