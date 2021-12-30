@@ -10,7 +10,6 @@ Grid = List[Cells]
 
 
 class GameOfLife:
-
     def __init__(
         self, size: tuple = (48, 64), max_generations: Optional[float] = float("inf")
     ) -> None:
