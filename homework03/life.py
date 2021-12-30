@@ -12,9 +12,7 @@ Grid = List[Cells]
 class GameOfLife:
 
     def __init__(
-            self,
-            size: tuple = (48, 64),
-            max_generations: Optional[float] = float('inf')
+        self, size: tuple = (48, 64), max_generations: Optional[float] = float("inf")
     ) -> None:
 
         self.rows, self.cols = size
@@ -28,7 +26,7 @@ class GameOfLife:
         self.generations = 1
         self.grid = None
 
-    def create_grid(self, randomize = True):
+    def create_grid(self, randomize=True):
         grid = [[0] * self.cols for _ in range(self.rows)]
         if randomize:
             for i in range(self.rows):
@@ -42,8 +40,7 @@ class GameOfLife:
         neighbours = []
         for col in range(-1, 2):
             for row in range(-1, 2):
-                if self.rows > y + row >= 0 and self.cols > x + col >= 0 and (
-                        col != 0 or row != 0):
+                if self.rows > y + row >= 0 and self.cols > x + col >= 0 and (col != 0 or row != 0):
                     neighbours.append(self.curr_generation[y + row][x + col])
         return neighbours
 
