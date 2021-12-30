@@ -12,7 +12,6 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     keyword = keyword.upper()
 
     ciphertext = ""
-    
     for num, symbol in enumerate(plaintext):
         if "A" <= symbol <= "Z" or "a" <= symbol <= "z":
             shift = ord(keyword[num % len(keyword)])
@@ -41,7 +40,6 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     keyword = keyword.upper()
 
     plaintext = ""
-
     for num, symbol in enumerate(ciphertext):
         if "A" <= symbol <= "Z" or "a" <= symbol <= "z":
             shift = ord(keyword[num % len(keyword)])
