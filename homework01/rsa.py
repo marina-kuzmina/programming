@@ -35,8 +35,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     """
     >>> multiplicative_inverse(7, 40)
     23
-    
-    """ 
+    """
     res = []
     while e != 0:
         res.append((phi, e, phi % e, phi // e))
