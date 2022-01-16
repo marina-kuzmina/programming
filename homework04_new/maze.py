@@ -199,11 +199,11 @@ def solve_maze(
 
     exits = get_exits(grid)
     if len(exits) == 1:
-        return 0
+        return None
 
     for i in exits:
         if encircled_exit(grid, i):
-            return 0
+            return None
 
     start = exits[0]
     finish = exits[1]
@@ -239,7 +239,7 @@ def solve_maze(
         k += 1
         make_step(grid, k)
 
-    return Tuple[List[List[shortest_path(grid, finish)]]]
+    return shortest_path(grid, finish)
 
 
 def add_path_to_grid(
