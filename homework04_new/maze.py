@@ -239,7 +239,7 @@ def solve_maze(
         k += 1
         make_step(grid, k)
 
-    #return shortest_path(grid, finish)
+    # return shortest_path(grid, finish)
     return grid, path
 
 
