@@ -239,7 +239,8 @@ def solve_maze(
         k += 1
         make_step(grid, k)
 
-    return shortest_path(grid, finish)
+    #return shortest_path(grid, finish)
+    return grid, path
 
 
 def add_path_to_grid(
@@ -263,7 +264,7 @@ if __name__ == "__main__":
     print(pd.DataFrame(bin_tree_maze(15, 15)))
     GRID = bin_tree_maze(15, 15)
     print(pd.DataFrame(GRID))
-    PATH = solve_maze(GRID)
+    _, PATH = solve_maze(GRID)
     MAZE = add_path_to_grid(GRID, PATH)
     print(pd.DataFrame(MAZE))  # D, path1)
     print(pd.DataFrame(MAZE))
