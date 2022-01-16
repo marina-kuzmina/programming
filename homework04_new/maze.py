@@ -199,11 +199,11 @@ def solve_maze(
 
     exits = get_exits(grid)
     if len(exits) == 1:
-        return None
+        return (grid, None)
 
     for i in exits:
         if encircled_exit(grid, i):
-            return None
+            return (grid, None)
 
     start = exits[0]
     finish = exits[1]
