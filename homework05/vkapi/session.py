@@ -22,10 +22,14 @@ class Session:
         max_retries: int = 3,
         backoff_factor: float = 0.3,
     ) -> None:
-        pass
+        super().__init__()
+        self.base_url = base_url
+        retry = Retry(total=max_retries, backoff_factor=backoff_factor, status_forcelist=[500, 503])
+        adapter = HTTPAdapterWithTimeout(max_retries=retry, timeout=timeout)
+        super().mount(self.base_url, adapter)
 
     def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        pass
+        return super().get(self.base_url + "/" + url, *args, **kwargs)
 
     def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        pass
+        return super().post(self.base_url + "/" + url, *args, **kwargs)
