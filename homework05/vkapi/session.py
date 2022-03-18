@@ -30,7 +30,7 @@ class Session:
     :param backoff_factor: Коэффициент экспоненциального нарастания задержки.
     """
 
-    def __init__(
+   def __init__(
         self,
         base_url: str,
         timeout: float = 5.0,
@@ -38,11 +38,12 @@ class Session:
         backoff_factor: float = 0.3,
     ) -> None:
         super().__init__()
+        self.retries = Retry(
+            total=max_retries, backoff_factor=backoff_factor, status_forcelist=[500]
+        )
+        self.mount(base_url, HTTPAdapter(max_retries=self.retries))
         self.base_url = base_url
-        retry = Retry(total=max_retries, backoff_factor=backoff_factor, status_forcelist=[500, 503])
-        adapter = HTTPAdapterWithTimeout(max_retries=retry, timeout=timeout)
-        super().mount(self.base_url, adapter)
-
+        self.timeout = timeout
     def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
         return super().get(self.base_url + "/" + url, *args, **kwargs)
 
