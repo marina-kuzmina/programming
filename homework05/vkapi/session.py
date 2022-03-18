@@ -2,35 +2,20 @@ import typing as tp
 
 import requests
 from requests.adapters import HTTPAdapter
+from requests.exceptions import RetryError
 from requests.packages.urllib3.util.retry import Retry
 
 
-class HTTPAdapterWithTimeout(HTTPAdapter):
-    def __init__(self, timeout, *args, **kwargs):
-        self.timeout = timeout
-        if "timeout" in kwargs:
-            self.timeout = kwargs["timeout"]
-            del kwargs["timeout"]
-        super().__init__(*args, **kwargs)
-
-    def send(self, request, **kwargs):
-        timeout = kwargs.get("timeout")
-        if timeout is None:
-            kwargs["timeout"] = self.timeout
-        return super().send(request, **kwargs)
-
-
-class Session:
+class Session(requests.Session):
     """
     Сессия.
-
     :param base_url: Базовый адрес, на который будут выполняться запросы.
     :param timeout: Максимальное время ожидания ответа от сервера.
     :param max_retries: Максимальное число повторных запросов.
     :param backoff_factor: Коэффициент экспоненциального нарастания задержки.
     """
 
-   def __init__(
+    def __init__(
         self,
         base_url: str,
         timeout: float = 5.0,
@@ -44,8 +29,11 @@ class Session:
         self.mount(base_url, HTTPAdapter(max_retries=self.retries))
         self.base_url = base_url
         self.timeout = timeout
-    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        return super().get(self.base_url + "/" + url, *args, **kwargs)
 
-    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        return super().post(self.base_url + "/" + url, *args, **kwargs)
+    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  # type: ignore
+        kwargs["timeout"] = kwargs.get("timeout", self.timeout)
+        return super().get(f"{self.base_url}/{url}", *args, **kwargs)
+
+    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:  # type: ignore
+        kwargs["timeout"] = kwargs.get("timeout", self.timeout)
+        return super().post(f"{self.base_url}/{url}", *args, **kwargs)
