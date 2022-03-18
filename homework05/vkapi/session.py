@@ -17,7 +17,7 @@ class HTTPAdapterWithTimeout(HTTPAdapter):
         timeout = kwargs.get("timeout")
         if timeout is None:
             kwargs["timeout"] = self.timeout
-        return super().send(request, **kwargs)   
+        return super().send(request, **kwargs)
 class Session:
     """
     Сессия.
