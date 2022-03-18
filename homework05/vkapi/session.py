@@ -4,6 +4,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
+
 class HTTPAdapterWithTimeout(HTTPAdapter):
     def __init__(self, timeout, *args, **kwargs):
         self.timeout = timeout
