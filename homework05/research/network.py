@@ -1,11 +1,12 @@
+import time
 import typing as tp
 from collections import defaultdict
 
-import community as community_louvain
-import matplotlib.pyplot as plt
-import networkx as nx
-import pandas as pd
-from vkapi.friends import get_friends, get_mutual
+import community as community_louvain  # type: ignore
+import matplotlib.pyplot as plt  # type: ignore
+import networkx as nx  # type: ignore
+import pandas as pd  # type: ignore
+from vkapi.friends import MutualFriends, get_friends, get_mutual
 
 
 def ego_network(
@@ -13,7 +14,6 @@ def ego_network(
 ) -> tp.List[tp.Tuple[int, int]]:
     """
     Построить эгоцентричный граф друзей.
-
     :param user_id: Идентификатор пользователя, для которого строится граф друзей.
     :param friends: Идентификаторы друзей, между которыми устанавливаются связи.
     """
@@ -69,7 +69,6 @@ def describe_communities(
 ) -> pd.DataFrame:
     if fields is None:
         fields = ["first_name", "last_name"]
-
     data = []
     for cluster_n, cluster_users in clusters.items():
         for uid in cluster_users:
