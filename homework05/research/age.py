@@ -1,7 +1,6 @@
 import datetime as dt
 import statistics
 import typing as tp
-import requests
 
 from dateutil.relativedelta import relativedelta
 from vkapi.friends import get_friends
