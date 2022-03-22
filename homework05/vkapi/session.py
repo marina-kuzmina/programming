@@ -57,6 +57,7 @@ class Session:
         response = self.session.post(self.base_url + "/" + url, *args, **kwargs)
         return response
 
+
 if __name__ == "__main__":
     session = Session(
         base_url="https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports"
