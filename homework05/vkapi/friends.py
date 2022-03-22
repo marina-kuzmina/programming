@@ -4,9 +4,9 @@ import time
 import typing as tp
 
 from vkapi import config, session
+from vkapi.config import VK_CONFIG
 from vkapi.exceptions import APIError
 
-from vkapi.config import VK_CONFIG
 from vkapi.session import Session
 
 session = Session(VK_CONFIG["domain"])
