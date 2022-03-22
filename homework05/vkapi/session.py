@@ -58,4 +58,6 @@ class Session:
         return response
 
 if __name__ == "__main__":
-    session = Session(base_url="https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports")
+    session = Session(
+        base_url="https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports"
+    )
