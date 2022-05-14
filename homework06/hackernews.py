@@ -14,7 +14,7 @@ def news_list():
     TEMPLATE_PATH.insert(0, '')
     s = session()
     rows = s.query(News).filter(News.label == None).all()
-    return template('news_template', rows=rows)
+    return template('news', rows=rows)
 
 
 @route("/add_label/")
