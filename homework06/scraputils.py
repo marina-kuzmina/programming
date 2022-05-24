@@ -1,3 +1,4 @@
+ignore_missing_imports = True
 from typing import Dict, List
 
 import requests
