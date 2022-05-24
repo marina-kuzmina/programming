@@ -1,11 +1,7 @@
-from bottle import (
-    route, run, template, request, redirect, TEMPLATE_PATH
-)
-
-from scraputils import get_news
+from bayes import NaiveBayesClassifier, clean
+from bottle import TEMPLATE_PATH, redirect, request, route, run, template
 from db import News, session
-from bayes import NaiveBayesClassifier
-from bayes import clean
+from scraputils import get_news
 
 
 @route("/")
