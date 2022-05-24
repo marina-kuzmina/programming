@@ -1,11 +1,11 @@
-import math
 import csv
+import math
 import string
-from typing import List, Dict
+from typing import Dict, List
 
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
-from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 class NaiveBayesClassifier:
