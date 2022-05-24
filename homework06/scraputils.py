@@ -52,21 +52,21 @@ def extract_next_page(parser: BeautifulSoup) -> str:
     return "" if not more_link else more_link["href"]
 
 
-def get_news(url: str, n_pages: int = 1) -> List[Dict]:
+# def get_news(url: str, n_pages: int = 1) -> List[Dict]:
     """
     Collect news from a given web page
     :param url: web page url
     :param n_pages: count of pages to scan
     :return: array with news
     """
-    news = []
-    while n_pages:
-        print("Collecting data from page: {}".format(url))
+    # news = []
+    # while n_pages:
+        # print("Collecting data from page: {}".format(url))
         # response = requests.get(url)
         # soup = BeautifulSoup(response.text, "html.parser")
         # news_list = extract_news(soup)
         # next_page = extract_next_page(soup)
         # url = "https://news.ycombinator.com/" + next_page
         # news.extend(news_list)
-        n_pages -= 1
-    return news
+        # n_pages -= 1
+    # return news
