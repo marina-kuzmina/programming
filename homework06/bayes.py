@@ -9,7 +9,6 @@ from sklearn.pipeline import Pipeline
 
 
 class NaiveBayesClassifier:
-
     def __init__(self, alpha=1):
         self.alpha = alpha
         self.vectors = {}  # all unique vectors
@@ -28,12 +27,12 @@ class NaiveBayesClassifier:
         for i in range(len(X)):
             for word in X[i].split():
                 if self.vectors.get(word):
-                    if self.vectors[word]['n'].get(y[i]):
-                        self.vectors[word]['n'][y[i]] += 1
+                    if self.vectors[word]["n"].get(y[i]):
+                        self.vectors[word]["n"][y[i]] += 1
                     else:
-                        self.vectors[word]['n'][y[i]] = 1
+                        self.vectors[word]["n"][y[i]] = 1
                 else:
-                    self.vectors[word] = {'n': {y[i]: 1}}
+                    self.vectors[word] = {"n": {y[i]: 1}}
                     self.d += 1
 
                 if self.labels_d.get(y[i]):
@@ -46,13 +45,17 @@ class NaiveBayesClassifier:
         # 2. Count probabilities in each added vector of each class (label)
         for vector in self.vectors:
             for label in self.labels_d:
-                n = 0 if not self.vectors[vector]['n'].get(label) else self.vectors[vector]['n'][label]
+                n = (
+                    0
+                    if not self.vectors[vector]["n"].get(label)
+                    else self.vectors[vector]["n"][label]
+                )
                 p = (n + self.alpha) / (self.labels_d[label] + (self.d * self.alpha))
 
-                if self.vectors[vector].get('p'):
-                    self.vectors[vector]['p'][label] = p
+                if self.vectors[vector].get("p"):
+                    self.vectors[vector]["p"][label] = p
                 else:
-                    self.vectors[vector]['p'] = {label: p}
+                    self.vectors[vector]["p"] = {label: p}
 
         # 3. Count probability of each class
         sum = 0
@@ -77,17 +80,17 @@ class NaiveBayesClassifier:
         # 2. For each class write to 'sums' vector's ln( P(w|C) )
         for vector in X:
             if self.vectors.get(vector):
-                for label in self.vectors[vector]['p']:
-                    sums[label] += math.log(self.vectors[vector]['p'][label])
+                for label in self.vectors[vector]["p"]:
+                    sums[label] += math.log(self.vectors[vector]["p"][label])
 
         # 3. Find max sum from 'sums'
-        predicted = {'sum': 0, 'label': None}
+        predicted = {"sum": 0, "label": None}
         for label in sums:
-            if (not predicted['sum']) or (sums[label] > predicted['sum']):
-                predicted['sum'] = sums[label]
-                predicted['label'] = label
+            if (not predicted["sum"]) or (sums[label] > predicted["sum"]):
+                predicted["sum"] = sums[label]
+                predicted["label"] = label
 
-        return predicted['label']
+        return predicted["label"]
 
     def score(self, X_test: List[str], y_test: List[str]) -> int:
         """
