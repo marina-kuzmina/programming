@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-import requests
+# import requests
 from bs4 import BeautifulSoup
 from db import *
 
