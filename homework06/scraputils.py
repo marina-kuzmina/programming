@@ -51,7 +51,6 @@ def extract_next_page(parser: BeautifulSoup) -> str:
     more_link = parser.find("a", attrs={"class": "morelink"})
     return "" if not more_link else more_link["href"]
 
-
     # def get_news(url: str, n_pages: int = 1) -> List[Dict]:
     """
     Collect news from a given web page
