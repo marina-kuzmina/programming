@@ -7,17 +7,17 @@ from scraputils import get_news
 @route("/")
 @route("/news")
 def news_list():
-    TEMPLATE_PATH.insert(0, '')
+    TEMPLATE_PATH.insert(0, "")
     s = session()
     rows = s.query(News).filter(News.label == None).all()
-    return template('news', rows=rows)
+    return template("news", rows=rows)
 
 
 @route("/add_label/")
 def add_label():
     # 1. Get label and query id from request parameters
-    label = request.query['label']
-    entry_id = request.query['id']
+    label = request.query["label"]
+    entry_id = request.query["id"]
 
     # 2. Update database
     s = session()
@@ -32,7 +32,7 @@ def add_label():
 @route("/update")
 def update_news():
     # 1. Get all available news from hacker news
-    new_news = get_news('https://news.ycombinator.com/', 17)
+    new_news = get_news("https://news.ycombinator.com/", 17)
 
     # 2. Get all news from our database and transform response to list with Tuples - (title, author)
     s = session()
@@ -41,14 +41,14 @@ def update_news():
 
     # 3. Add news in database, if the aren't already there
     for entry in new_news:
-        if (entry['title'], entry['author']) not in old_news:
-            print('adding to db...')
+        if (entry["title"], entry["author"]) not in old_news:
+            print("adding to db...")
 
-            new = News(title=entry['title'],
-                       author=entry['author'],
-                       url=entry['url'],
-                       comments=entry['comments'],
-                       points=entry['points'])
+            new = News(title=entry["title"],
+                       author=entry["author"],
+                       url=entry["url"],
+                       comments=entry["comments"],
+                       points=entry["points"])
             s.add(new)
             s.commit()
 
@@ -56,9 +56,9 @@ def update_news():
     redirect("/news")
 
 
-@route('/recommendations')
+@route("/recommendations")
 def recommendations():
-    TEMPLATE_PATH.insert(0, '')
+    TEMPLATE_PATH.insert(0, "")
     s = session()
 
     # 1. Classify labeled news
@@ -83,7 +83,7 @@ def recommendations():
         marked.append((model.predict(row.title.split()), row))
 
     # 4. Print ranked table
-    return template('news_ranked', rows=marked)
+    return template("news_ranked", rows=marked)
 
 
 if __name__ == "__main__":
