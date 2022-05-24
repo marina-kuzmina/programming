@@ -87,10 +87,10 @@ class NaiveBayesClassifier:
         predicted = {"sum": 0, "label": None}
         for label in sums:
             if (not predicted["sum"]) or (sums[label] > predicted["sum"]):
-                predicted["sum"] = sums[label]
+                # predicted["sum"] = sums[label]
                 predicted["label"] = label
 
-        return predicted["label"]
+        # return predicted["label"]
 
     def score(self, X_test: List[str], y_test: List[str]) -> int:
         """
@@ -107,7 +107,7 @@ class NaiveBayesClassifier:
             predictions_count += 1
             right_predictions_count += 1 if label == y_test[i] else 0
 
-        return right_predictions_count / predictions_count
+        # return right_predictions_count / predictions_count
 
 
 def clean(s: str) -> str:
