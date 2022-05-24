@@ -44,11 +44,13 @@ def update_news():
         if (entry["title"], entry["author"]) not in old_news:
             print("adding to db...")
 
-            new = News(title=entry["title"],
-                       author=entry["author"],
-                       url=entry["url"],
-                       comments=entry["comments"],
-                       points=entry["points"])
+            new = News(
+                title=entry["title"],
+                author=entry["author"],
+                url=entry["url"],
+                comments=entry["comments"],
+                points=entry["points"],
+            )
             s.add(new)
             s.commit()
 
