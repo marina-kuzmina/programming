@@ -64,9 +64,9 @@ def get_news(url: str, n_pages: int = 1) -> List[Dict]:
         print("Collecting data from page: {}".format(url))
         # response = requests.get(url)
         # soup = BeautifulSoup(response.text, "html.parser")
-        news_list = extract_news(soup)
+        # news_list = extract_news(soup)
         # next_page = extract_next_page(soup)
         # url = "https://news.ycombinator.com/" + next_page
-        news.extend(news_list)
+        # news.extend(news_list)
         n_pages -= 1
     return news
