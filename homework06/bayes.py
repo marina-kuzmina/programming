@@ -91,6 +91,7 @@ class NaiveBayesClassifier:
                 predicted["label"] = label
 
         # return predicted["label"]
+        return 0
 
     def score(self, X_test: List[str], y_test: List[str]) -> int:
         """
@@ -108,6 +109,7 @@ class NaiveBayesClassifier:
             right_predictions_count += 1 if label == y_test[i] else 0
 
         # return right_predictions_count / predictions_count
+        return 0
 
 
 def clean(s: str) -> str:
