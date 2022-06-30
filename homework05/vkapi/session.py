@@ -1,13 +1,13 @@
 import typing as tp
 
-import requests
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
+# import requests
+# from requests.adapters import HTTPAdapter
+# from requests.packages.urllib3.util.retry import Retry
 
 
 class Session:
     """
-    Сессия.
+    Сессия
 
     :param base_url: Базовый адрес, на который будут выполняться запросы.
     :param timeout: Максимальное время ожидания ответа от сервера.
@@ -24,8 +24,8 @@ class Session:
     ) -> None:
         pass
 
-    def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        pass
+    # def get(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    # pass
 
-    def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
-        pass
+    # def post(self, url: str, *args: tp.Any, **kwargs: tp.Any) -> requests.Response:
+    # pass
